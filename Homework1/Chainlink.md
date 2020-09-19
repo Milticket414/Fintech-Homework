@@ -24,6 +24,10 @@ Chainlink is partnered with many customers of quite a few use cases.  A couple o
 
 Chainlink is traded and used on the Etherum blockchain. It competes with the Band Protocol which is another oracle network working with smart contracts. 
 
+*Chainlink is key to Decentralized finance with pulling real world data outside the blockchain with oracles connecting smart contracts for verification of data. Once data is verified information is entered into the blockchain.  
+
+*Decentralized Finance is the future.
+
 ##Resources
 https://golden.com/wiki/ChainLink_(cryptocurrency)-BWK8E8D
 https://chain.link/
