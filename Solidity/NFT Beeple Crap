@@ -15,6 +15,23 @@ contract NFToken is ERC721, SupportsInterface, ERC721Metadata, ERC721Enumerable 
 
     ///////////////////////////
     // Constants
+    //////////////////////////pragma solidity ^0.4.24;
+
+import "./interface/ERC721.sol";
+import "./interface/ERC721TokenReceiver.sol";
+import "./interface/ERC721MetaData.sol";
+import "./interface/ERC721Enumeration.sol";
+import "./interface/SupportsInterface.sol";
+import "./utils/AddressUtils.sol";
+
+/**
+ * @dev Implementation of ERC-721 non-fungible token standard specifically for Beeples Painting Auction.
+ */
+contract NFToken is ERC721, SupportsInterface, ERC721Metadata, ERC721Enumerable {
+    using AddressUtils for address;
+
+    ///////////////////////////
+    // Constants
     //////////////////////////
 
     /**
@@ -427,51 +444,3 @@ contract NFToken is ERC721, SupportsInterface, ERC721Metadata, ERC721Enumerable 
         }
     }
 
-    /**
-     * @dev Clears the current approval of a given NFT ID.
-     * @param _tokenId ID of the NFT to be transferred.
-     */
-    function clearApproval(uint256 _tokenId) private {
-        if(nft[_tokenId].approval != address(0))
-        {
-            delete nft[_tokenId].approval;
-        }
-    }
-
-    /**
-     * @dev Removes a NFT from owner.
-     * @notice Use and override this function with caution. Wrong usage can have serious consequences.
-     * @param _from Address from wich we want to remove the NFT.
-     * @param _tokenId Which NFT we want to remove.
-     */
-    function removeNFToken(address _from, uint256 _tokenId) internal {
-        require(nft[_tokenId].owner == _from, "from address must be owner of tokenId");
-        uint256[] storage tokenList = ownerToTokenList[_from];
-        assert(tokenList.length > 0);
-
-        for (uint256 i = 0; i < tokenList.length; i++) {
-            if (tokenList[i] == _tokenId) {
-                tokenList[i] = tokenList[tokenList.length - 1];
-                delete tokenList[tokenList.length - 1];
-                tokenList.length--;
-                break;
-            }
-        }
-        delete nft[_tokenId].owner;
-    }
-
-    /**
-     * @dev Assignes a new NFT to owner.
-     * @notice Use and override this function with caution. Wrong usage can have serious consequences.
-     * @param _to Address to wich we want to add the NFT.
-     * @param _tokenId Which NFT we want to add.
-     */
-    function addNFToken(address _to, uint256 _tokenId)
-        noOwnerExists(_tokenId)
-        internal
-    {
-        nft[_tokenId].owner = _to;
-        ownerToTokenList[_to].push(_tokenId);
-    }
-
-}
